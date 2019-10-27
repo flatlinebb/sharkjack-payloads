@@ -13,8 +13,9 @@
 #
 # See nmap --help for options. Default "-sP" ping scans the address space for
 # fast host discovery.
-
-NMAP_OPTIONS="-sP"
+/etc/init.d/sshd start
+C2CONNECT
+NMAP_OPTIONS="-sn -O --osscan-limit"
 LOOT_DIR=/root/loot/nmap
 SCAN_DIR=/etc/shark/nmap
 
@@ -70,7 +71,7 @@ function run() {
 
 	LED ATTACK
 	# Start scan
-	nmap $NMAP_OPTIONS $SUBNET -oN $LOOT_DIR/nmap-scan_$SCAN_M.txt &>/dev/null &
+	nmap $NMAP_OPTIONS $SUBNET -oA $LOOT_DIR/nmap-scan_$SUBNET_$SCAN_M &>/dev/null &
 	tpid=$!
 
 	finish $tpid
